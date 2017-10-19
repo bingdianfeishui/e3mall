@@ -1,83 +1,90 @@
 package cn.e3mall.pojo;
 
-public class TbOrderItem {
-    private String id;
+import java.io.Serializable;
 
-    private String itemId;
+public class TbOrderItem implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 519426626862314353L;
 
-    private String orderId;
+	private String id;
 
-    private Integer num;
+	private String itemId;
 
-    private String title;
+	private String orderId;
 
-    private Long price;
+	private Integer num;
 
-    private Long totalFee;
+	private String title;
 
-    private String picPath;
+	private Long price;
 
-    public String getId() {
-        return id;
-    }
+	private Long totalFee;
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
+	private String picPath;
 
-    public String getItemId() {
-        return itemId;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId == null ? null : itemId.trim();
-    }
+	public void setId(String id) {
+		this.id = id == null ? null : id.trim();
+	}
 
-    public String getOrderId() {
-        return orderId;
-    }
+	public String getItemId() {
+		return itemId;
+	}
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
-    }
+	public void setItemId(String itemId) {
+		this.itemId = itemId == null ? null : itemId.trim();
+	}
 
-    public Integer getNum() {
-        return num;
-    }
+	public String getOrderId() {
+		return orderId;
+	}
 
-    public void setNum(Integer num) {
-        this.num = num;
-    }
+	public void setOrderId(String orderId) {
+		this.orderId = orderId == null ? null : orderId.trim();
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public Integer getNum() {
+		return num;
+	}
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
+	public void setNum(Integer num) {
+		this.num = num;
+	}
 
-    public Long getPrice() {
-        return price;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setPrice(Long price) {
-        this.price = price;
-    }
+	public void setTitle(String title) {
+		this.title = title == null ? null : title.trim();
+	}
 
-    public Long getTotalFee() {
-        return totalFee;
-    }
+	public Long getPrice() {
+		return price;
+	}
 
-    public void setTotalFee(Long totalFee) {
-        this.totalFee = totalFee;
-    }
+	public void setPrice(Long price) {
+		this.price = price;
+	}
 
-    public String getPicPath() {
-        return picPath;
-    }
+	public Long getTotalFee() {
+		return totalFee;
+	}
 
-    public void setPicPath(String picPath) {
-        this.picPath = picPath == null ? null : picPath.trim();
-    }
+	public void setTotalFee(Long totalFee) {
+		this.totalFee = totalFee;
+	}
+
+	public String getPicPath() {
+		return picPath;
+	}
+
+	public void setPicPath(String picPath) {
+		this.picPath = picPath == null ? null : picPath.trim();
+	}
 }

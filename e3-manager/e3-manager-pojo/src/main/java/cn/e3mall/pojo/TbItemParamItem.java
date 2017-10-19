@@ -1,55 +1,61 @@
 package cn.e3mall.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TbItemParamItem {
-    private Long id;
+public class TbItemParamItem implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5063276493950919788L;
 
-    private Long itemId;
+	private Long id;
 
-    private Date created;
+	private Long itemId;
 
-    private Date updated;
+	private Date created;
 
-    private String paramData;
+	private Date updated;
 
-    public Long getId() {
-        return id;
-    }
+	private String paramData;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Long getItemId() {
-        return itemId;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
-    }
+	public Long getItemId() {
+		return itemId;
+	}
 
-    public Date getCreated() {
-        return created;
-    }
+	public void setItemId(Long itemId) {
+		this.itemId = itemId;
+	}
 
-    public void setCreated(Date created) {
-        this.created = created;
-    }
+	public Date getCreated() {
+		return created;
+	}
 
-    public Date getUpdated() {
-        return updated;
-    }
+	public void setCreated(Date created) {
+		this.created = created;
+	}
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
+	public Date getUpdated() {
+		return updated;
+	}
 
-    public String getParamData() {
-        return paramData;
-    }
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 
-    public void setParamData(String paramData) {
-        this.paramData = paramData == null ? null : paramData.trim();
-    }
+	public String getParamData() {
+		return paramData;
+	}
+
+	public void setParamData(String paramData) {
+		this.paramData = paramData == null ? null : paramData.trim();
+	}
 }

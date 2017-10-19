@@ -1,175 +1,181 @@
 package cn.e3mall.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TbOrder {
-    private String orderId;
+public class TbOrder implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6197831549065833628L;
 
-    private String payment;
+	private String orderId;
 
-    private Integer paymentType;
+	private String payment;
 
-    private String postFee;
+	private Integer paymentType;
 
-    private Integer status;
+	private String postFee;
 
-    private Date createTime;
+	private Integer status;
 
-    private Date updateTime;
+	private Date createTime;
 
-    private Date paymentTime;
+	private Date updateTime;
 
-    private Date consignTime;
+	private Date paymentTime;
 
-    private Date endTime;
+	private Date consignTime;
 
-    private Date closeTime;
+	private Date endTime;
 
-    private String shippingName;
+	private Date closeTime;
 
-    private String shippingCode;
+	private String shippingName;
 
-    private Long userId;
+	private String shippingCode;
 
-    private String buyerMessage;
+	private Long userId;
 
-    private String buyerNick;
+	private String buyerMessage;
 
-    private Integer buyerRate;
+	private String buyerNick;
 
-    public String getOrderId() {
-        return orderId;
-    }
+	private Integer buyerRate;
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
-    }
+	public String getOrderId() {
+		return orderId;
+	}
 
-    public String getPayment() {
-        return payment;
-    }
+	public void setOrderId(String orderId) {
+		this.orderId = orderId == null ? null : orderId.trim();
+	}
 
-    public void setPayment(String payment) {
-        this.payment = payment == null ? null : payment.trim();
-    }
+	public String getPayment() {
+		return payment;
+	}
 
-    public Integer getPaymentType() {
-        return paymentType;
-    }
+	public void setPayment(String payment) {
+		this.payment = payment == null ? null : payment.trim();
+	}
 
-    public void setPaymentType(Integer paymentType) {
-        this.paymentType = paymentType;
-    }
+	public Integer getPaymentType() {
+		return paymentType;
+	}
 
-    public String getPostFee() {
-        return postFee;
-    }
+	public void setPaymentType(Integer paymentType) {
+		this.paymentType = paymentType;
+	}
 
-    public void setPostFee(String postFee) {
-        this.postFee = postFee == null ? null : postFee.trim();
-    }
+	public String getPostFee() {
+		return postFee;
+	}
 
-    public Integer getStatus() {
-        return status;
-    }
+	public void setPostFee(String postFee) {
+		this.postFee = postFee == null ? null : postFee.trim();
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public Integer getStatus() {
+		return status;
+	}
 
-    public Date getCreateTime() {
-        return createTime;
-    }
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+	public Date getUpdateTime() {
+		return updateTime;
+	}
 
-    public Date getPaymentTime() {
-        return paymentTime;
-    }
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
 
-    public void setPaymentTime(Date paymentTime) {
-        this.paymentTime = paymentTime;
-    }
+	public Date getPaymentTime() {
+		return paymentTime;
+	}
 
-    public Date getConsignTime() {
-        return consignTime;
-    }
+	public void setPaymentTime(Date paymentTime) {
+		this.paymentTime = paymentTime;
+	}
 
-    public void setConsignTime(Date consignTime) {
-        this.consignTime = consignTime;
-    }
+	public Date getConsignTime() {
+		return consignTime;
+	}
 
-    public Date getEndTime() {
-        return endTime;
-    }
+	public void setConsignTime(Date consignTime) {
+		this.consignTime = consignTime;
+	}
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
+	public Date getEndTime() {
+		return endTime;
+	}
 
-    public Date getCloseTime() {
-        return closeTime;
-    }
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
 
-    public void setCloseTime(Date closeTime) {
-        this.closeTime = closeTime;
-    }
+	public Date getCloseTime() {
+		return closeTime;
+	}
 
-    public String getShippingName() {
-        return shippingName;
-    }
+	public void setCloseTime(Date closeTime) {
+		this.closeTime = closeTime;
+	}
 
-    public void setShippingName(String shippingName) {
-        this.shippingName = shippingName == null ? null : shippingName.trim();
-    }
+	public String getShippingName() {
+		return shippingName;
+	}
 
-    public String getShippingCode() {
-        return shippingCode;
-    }
+	public void setShippingName(String shippingName) {
+		this.shippingName = shippingName == null ? null : shippingName.trim();
+	}
 
-    public void setShippingCode(String shippingCode) {
-        this.shippingCode = shippingCode == null ? null : shippingCode.trim();
-    }
+	public String getShippingCode() {
+		return shippingCode;
+	}
 
-    public Long getUserId() {
-        return userId;
-    }
+	public void setShippingCode(String shippingCode) {
+		this.shippingCode = shippingCode == null ? null : shippingCode.trim();
+	}
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+	public Long getUserId() {
+		return userId;
+	}
 
-    public String getBuyerMessage() {
-        return buyerMessage;
-    }
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
-    public void setBuyerMessage(String buyerMessage) {
-        this.buyerMessage = buyerMessage == null ? null : buyerMessage.trim();
-    }
+	public String getBuyerMessage() {
+		return buyerMessage;
+	}
 
-    public String getBuyerNick() {
-        return buyerNick;
-    }
+	public void setBuyerMessage(String buyerMessage) {
+		this.buyerMessage = buyerMessage == null ? null : buyerMessage.trim();
+	}
 
-    public void setBuyerNick(String buyerNick) {
-        this.buyerNick = buyerNick == null ? null : buyerNick.trim();
-    }
+	public String getBuyerNick() {
+		return buyerNick;
+	}
 
-    public Integer getBuyerRate() {
-        return buyerRate;
-    }
+	public void setBuyerNick(String buyerNick) {
+		this.buyerNick = buyerNick == null ? null : buyerNick.trim();
+	}
 
-    public void setBuyerRate(Integer buyerRate) {
-        this.buyerRate = buyerRate;
-    }
+	public Integer getBuyerRate() {
+		return buyerRate;
+	}
+
+	public void setBuyerRate(Integer buyerRate) {
+		this.buyerRate = buyerRate;
+	}
 }

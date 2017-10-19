@@ -1,45 +1,51 @@
 package cn.e3mall.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TbItemDesc {
-    private Long itemId;
+public class TbItemDesc implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 533901215785385040L;
 
-    private Date created;
+	private Long itemId;
 
-    private Date updated;
+	private Date created;
 
-    private String itemDesc;
+	private Date updated;
 
-    public Long getItemId() {
-        return itemId;
-    }
+	private String itemDesc;
 
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
-    }
+	public Long getItemId() {
+		return itemId;
+	}
 
-    public Date getCreated() {
-        return created;
-    }
+	public void setItemId(Long itemId) {
+		this.itemId = itemId;
+	}
 
-    public void setCreated(Date created) {
-        this.created = created;
-    }
+	public Date getCreated() {
+		return created;
+	}
 
-    public Date getUpdated() {
-        return updated;
-    }
+	public void setCreated(Date created) {
+		this.created = created;
+	}
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
+	public Date getUpdated() {
+		return updated;
+	}
 
-    public String getItemDesc() {
-        return itemDesc;
-    }
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 
-    public void setItemDesc(String itemDesc) {
-        this.itemDesc = itemDesc == null ? null : itemDesc.trim();
-    }
+	public String getItemDesc() {
+		return itemDesc;
+	}
+
+	public void setItemDesc(String itemDesc) {
+		this.itemDesc = itemDesc == null ? null : itemDesc.trim();
+	}
 }
