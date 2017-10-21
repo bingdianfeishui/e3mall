@@ -1,5 +1,9 @@
 package cn.e3mall.controller;
 
+import java.util.Date;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,8 +34,13 @@ public class ItemController {
 	private ItemService itemService;
 
 	@RequestMapping("/item/{itemId}")
-	public @ResponseBody TbItem getItemById(@PathVariable Long itemId) {
+	public @ResponseBody TbItem getItemById(@PathVariable Long itemId, HttpSession session) {
 		TbItem tbItem = itemService.getItemById(itemId);
+		if(itemId == 1L)
+			session.setAttribute("key", new Date());
+		
+		System.out.println(itemId + "\t===" + session.getAttribute("key") + "==+"+session.getId());
+		System.out.println(session.getAttributeNames());
 		return tbItem;
 	}
 	

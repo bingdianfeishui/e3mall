@@ -25,7 +25,7 @@
 
 	<build>
 		<plugins>
-			<!-- 配置Tomcat插件 -->
+			<!-- 配置Tomcat插件
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
@@ -34,36 +34,30 @@
 					<port>8080</port>
 				</configuration>
 			</plugin>
-			<!-- 配置jetty插件，支持热部署 -->
+			 -->
+
+			<!-- 配置jetty插件，支持热部署和session持久化。jetty9以上，版本已在parent pom中规定 -->
 			<plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>7.4.3.v20110701</version>
-                <configuration>
-                    <!-- 指定端口时，要在setting文件中配置jetty插件 -->
-                    <connectors>
-                        <connector implementation="org.eclipse.jetty.server.bio.SocketConnector">
-                            <port>80</port>
-                            <maxIdleTime>60000</maxIdleTime>
-                        </connector>
-                    </connectors>
-                    <scanIntervalSeconds>1</scanIntervalSeconds>
-                    <reload>manual</reload>
-                    <stopKey>foo</stopKey>
-                    <stopPort>9999</stopPort>
-                    <webAppConfig implementation="org.mortbay.jetty.plugin.JettyWebAppContext">
-                    <!-- 一般是项目名称 -->
-                        <contextPath>${jetty.contextRoot}</contextPath>
-                        <sessionHandler implementation="org.eclipse.jetty.server.session.SessionHandler">
-                            <sessionManager implementation="org.eclipse.jetty.server.session.HashSessionManager">
-                                <!-- 用于存放持久化的session路径 -->
-                                <storeDirectory>target/jetty-sessions</storeDirectory>
-                                <idleSavePeriod>1</idleSavePeriod>
-                            </sessionManager>
-                        </sessionHandler>
-                    </webAppConfig>
-                </configuration>
-            </plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<configuration>
+					<!-- 指定应用根路径和端口 -->
+					<httpConnector>
+						<host>localhost</host>
+						<port>8080</port>
+					</httpConnector>
+					<!-- 自动扫描改动时间间隔，在reload=auto时才起作用 -->
+					<scanIntervalSeconds>1</scanIntervalSeconds>
+					<!-- 手动重载，改动后在控制台按Enter键才重载 -->
+					<reload>manual</reload>
+
+					<!-- 关闭xxx的配置
+					<stopKey>foo</stopKey>
+					<stopPort>9998</stopPort>
+					 -->
+
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>

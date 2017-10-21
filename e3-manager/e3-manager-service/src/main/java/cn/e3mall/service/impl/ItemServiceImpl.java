@@ -38,7 +38,8 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public TbItem getItemById(Long id) {
 		// return itemMapper.selectByPrimaryKey(id);
-
+		
+		System.out.println("=============="+id);
 		TbItemExample example = new TbItemExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andIdEqualTo(id);

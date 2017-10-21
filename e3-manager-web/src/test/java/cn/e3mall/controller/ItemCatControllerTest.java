@@ -1,19 +1,21 @@
 package cn.e3mall.controller;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import cn.e3mall.pojo.TbItem;
-import cn.e3mall.service.ItemService;
+import cn.e3mall.common.EasyUITreeNode;
+import cn.e3mall.service.ItemCatService;
 
-public class ItemControllerTest {
+public class ItemCatControllerTest {
 
 	//@Test
 	public void test() {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/springmvc.xml");
-		ItemService bean = context.getBean(ItemService.class);
-		TbItem item = bean.getItemById(741524l);
-		System.out.println(item);
+		ItemCatService bean = context.getBean(ItemCatService.class);
+		List<EasyUITreeNode> nodes = bean.getItemCat(0);
+		System.out.println(nodes);
 		context.close();
 	}
 

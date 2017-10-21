@@ -6,7 +6,6 @@
 		<artifactId>e3-manager</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<packaging>war</packaging>
 	<artifactId>e3-manager-service</artifactId>
 	<dependencies>
 		<dependency>
@@ -77,5 +76,7 @@
 			<groupId>com.github.sgroschupf</groupId>
 			<artifactId>zkclient</artifactId>
 		</dependency>
+
 	</dependencies>
+	<packaging>war</packaging>
 </project>
