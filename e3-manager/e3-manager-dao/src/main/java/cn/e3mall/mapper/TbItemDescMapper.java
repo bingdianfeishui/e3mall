@@ -33,4 +33,13 @@ public interface TbItemDescMapper {
     int updateByPrimaryKeyWithBLOBs(TbItemDesc record);
 
     int updateByPrimaryKey(TbItemDesc record);
+    
+    //自定义方法
+    
+    /**
+     * 根据Item的barcode属性获取相应的商品描述
+     * @param barcode
+     * @return
+     */
+    TbItemDesc selectByItemBarCode(String barcode);
 }

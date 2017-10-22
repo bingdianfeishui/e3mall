@@ -1,5 +1,6 @@
 package cn.e3mall.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,11 @@ import com.github.pagehelper.PageHelper;
 
 import cn.e3mall.common.EasyUIDataGridResult;
 import cn.e3mall.common.PageInfoCriteria;
+import cn.e3mall.common.util.IDUtils;
+import cn.e3mall.mapper.TbItemDescMapper;
 import cn.e3mall.mapper.TbItemMapper;
 import cn.e3mall.pojo.TbItem;
+import cn.e3mall.pojo.TbItemDesc;
 import cn.e3mall.pojo.TbItemExample;
 import cn.e3mall.pojo.TbItemExample.Criteria;
 import cn.e3mall.service.ItemService;
@@ -34,12 +38,14 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private TbItemMapper itemMapper;
+	@Autowired
+	private TbItemDescMapper itemDescMapper;
 
 	@Override
 	public TbItem getItemById(Long id) {
 		// return itemMapper.selectByPrimaryKey(id);
-		
-		System.out.println("=============="+id);
+
+		System.out.println("==============" + id);
 		TbItemExample example = new TbItemExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andIdEqualTo(id);
@@ -57,7 +63,78 @@ public class ItemServiceImpl implements ItemService {
 		TbItemExample example = new TbItemExample();
 		Page<TbItem> pageResult = (Page<TbItem>) itemMapper.selectByExample(example);
 
-		// PageInfo<TbItem> pageInfo = new PageInfo<>(list);	//第二种方案，利用PageInfo解析list后获取信息
+		// PageInfo<TbItem> pageInfo = new PageInfo<>(list);
+		// //第二种方案，利用PageInfo解析list后获取信息
 		return new EasyUIDataGridResult(pageResult.getTotal(), pageResult);
+	}
+
+	@Override
+	public boolean addItem(TbItem item, String desc) {
+		try {
+			// 生成商品ID
+			long itemId = IDUtils.genItemId();
+			// 补全item属性并保存
+			item.setId(itemId);
+			// 商品状态，1-正常，2-下架，3-删除
+			item.setStatus((byte) 1);
+			Date now = new Date();
+			item.setCreated(now);
+			item.setUpdated(now);
+
+			// 创建ItemDesc对象并保存
+			TbItemDesc itemDesc = new TbItemDesc();
+			itemDesc.setItemDesc(desc);
+			itemDesc.setItemId(itemId);
+			itemDesc.setCreated(now);
+			itemDesc.setUpdated(now);
+
+			itemMapper.insert(item);
+			itemDescMapper.insert(itemDesc);
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updateItemAndDesc(TbItem item, String desc) {
+		if (item == null)
+			return false;
+		try {
+			TbItem oldItem = itemMapper.selectByPrimaryKey(item.getId());
+
+			if (oldItem == null)
+				return false;
+
+			// 商品状态，1-正常，2-下架，3-删除
+			item.setStatus(oldItem.getStatus());
+			Date now = new Date();
+			item.setCreated(oldItem.getCreated());
+			item.setUpdated(now);
+
+			// 创建ItemDesc对象并保存
+			TbItemDesc oldItemDesc = itemDescMapper.selectByPrimaryKey(item.getId());
+			if (oldItemDesc == null) {
+				// 若不存在则创建新的
+				TbItemDesc itemDesc = new TbItemDesc();
+				itemDesc.setItemDesc(desc);
+				itemDesc.setItemId(item.getId());
+				itemDesc.setCreated(now);
+				itemDesc.setUpdated(now);
+
+				itemDescMapper.insert(itemDesc);
+			} else {
+				oldItemDesc.setItemDesc(desc);
+				oldItemDesc.setUpdated(now);
+				itemDescMapper.updateByPrimaryKeyWithBLOBs(oldItemDesc);
+			}
+			itemMapper.updateByPrimaryKey(item);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

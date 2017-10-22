@@ -231,4 +231,14 @@
       updated = #{updated,jdbcType=TIMESTAMP}
     where item_id = #{itemId,jdbcType=BIGINT}
   </update>
+  
+  <select id="selectByItemBarCode" resultMap="ResultMapWithBLOBs" parameterType="string">
+    select 
+    	d.item_id,
+    	d.item_desc
+    from tb_item_desc d 
+    left join tb_item i
+    on d.item_id=i.itemid
+    where i.barcode=${barcode}
+  </select>
 </mapper>

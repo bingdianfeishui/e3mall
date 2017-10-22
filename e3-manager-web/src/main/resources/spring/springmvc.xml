@@ -26,13 +26,27 @@
 	<!-- 提供方应用信息，用于计算依赖关系 -->
 	<dubbo:application name="e3-manager-web" />
 	<dubbo:registry address="multicast://224.5.6.7:1234?unicast=false" />
-<!-- 	<dubbo:registry protocol="zookeeper" address="192.168.56.101:2181" /> -->
+	<!-- <dubbo:registry protocol="zookeeper" address="192.168.56.101:2181" 
+		/> -->
 	<!-- 用dubbo协议在20880端口暴露服务 -->
-	<dubbo:protocol name="rmi" port="20880"  codec="spring"/>
+	<dubbo:protocol name="rmi" port="20880" codec="spring" />
 
 	<!-- 声明需要暴露的服务接口 -->
 	<dubbo:reference interface="cn.e3mall.service.ItemService"
-		id="itemService" timeout="5000"/>
-		<dubbo:reference interface="cn.e3mall.service.ItemCatService"
-		id="itemCatService" timeout="5000"/>
+		id="itemService" timeout="5000" />
+	<dubbo:reference interface="cn.e3mall.service.ItemCatService"
+		id="itemCatService" timeout="5000" />
+	<dubbo:reference interface="cn.e3mall.service.ItemDescService"
+		id="itemDescService" timeout="5000" />
+
+	<!-- 图片服务器地址资源 -->
+	<context:property-placeholder location="classpath:conf/resource.properties"/>
+	<!-- 文件上传功能 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 默认编码 -->
+		<property name="defaultEncoding" value="UTF-8" />
+		<!-- 最大文件大小 -->
+		<property name="maxUploadSize" value="5242880" />
+	</bean>
 </beans>
