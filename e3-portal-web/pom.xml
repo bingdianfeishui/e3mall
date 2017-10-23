@@ -6,26 +6,10 @@
 		<artifactId>e3-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>e3-manager-web</artifactId>
+	<artifactId>e3-portal-web</artifactId>
 	<packaging>war</packaging>
 
 	<dependencies>
-		<dependency>
-			<groupId>cn.e3mall</groupId>
-			<artifactId>e3-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>cn.e3mall</groupId>
-			<artifactId>e3-manager-interface</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>cn.e3mall</groupId>
-			<artifactId>e3-content-interface</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
 
 		<!-- JSP相关 -->
 		<dependency>
@@ -41,12 +25,6 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jsp-api</artifactId>
 			<scope>provided</scope>
-		</dependency>
-
-		<!-- 文件上传组件 -->
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
 		</dependency>
 
 		<!-- Spring -->
@@ -123,7 +101,7 @@
 	<build>
 		<plugins>
 			<!-- 配置Tomcat插件 <plugin> <groupId>org.apache.tomcat.maven</groupId> <artifactId>tomcat7-maven-plugin</artifactId> 
-				<configuration> <path>/</path> <port>8081</port> </configuration> </plugin> -->
+				<configuration> <path>/</path> <port>8082</port> </configuration> </plugin> -->
 
 			<!-- 配置jetty插件，支持热部署和session持久化。jetty9以上，版本已在parent pom中规定 -->
 			<plugin>
@@ -133,7 +111,7 @@
 					<!-- 指定应用根路径和端口 -->
 					<httpConnector>
 						<host>127.0.0.1</host>
-						<port>8081</port>
+						<port>8082</port>
 					</httpConnector>
 					<!-- 自动扫描改动时间间隔，在reload=auto时才起作用 -->
 					<scanIntervalSeconds>1</scanIntervalSeconds>

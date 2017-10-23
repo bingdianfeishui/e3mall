@@ -3,10 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>cn.e3mall</groupId>
-		<artifactId>e3-manager</artifactId>
+		<artifactId>e3-content</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>e3-manager-service</artifactId>
+	<artifactId>e3-content-service</artifactId>
 	<packaging>war</packaging>
 	<dependencies>
 		<dependency>
@@ -16,7 +16,7 @@
 		</dependency>
 		<dependency>
 			<groupId>cn.e3mall</groupId>
-			<artifactId>e3-manager-interface</artifactId>
+			<artifactId>e3-content-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -77,6 +77,5 @@
 			<groupId>com.github.sgroschupf</groupId>
 			<artifactId>zkclient</artifactId>
 		</dependency>
-
 	</dependencies>
 </project>

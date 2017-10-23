@@ -8,50 +8,32 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
         http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<context:component-scan base-package="cn.e3mall.controller" />
+	<context:component-scan base-package="cn.e3mall.portal.controller" />
 	<mvc:annotation-driven />
 
-	<mvc:resources location="/js/" mapping="/js/**" />
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<!-- 静态资源映射 -->
+	<!-- 静态资源映射
 	<mvc:resources location="/css/" mapping="/css/**" />
 	<mvc:resources location="/js/" mapping="/js/**" />
-
+ 	-->
+ 	
 	<!-- 引用dubbo服务 -->
 	<!-- 提供方应用信息，用于计算依赖关系 -->
-	<dubbo:application name="e3-manager-web" />
+	<dubbo:application name="e3-portal-web" />
 	<dubbo:registry address="multicast://224.5.6.7:1234?unicast=false" />
 	<!-- <dubbo:registry protocol="zookeeper" address="192.168.56.101:2181" 
 		/> -->
 	<!-- 用dubbo协议在20880端口暴露服务 -->
 	<dubbo:protocol name="rmi" port="20880" codec="spring" />
 
-	<!-- 声明需要暴露的服务接口 -->
+	<!-- 声明需要暴露的服务接口
 	<dubbo:reference interface="cn.e3mall.service.ItemService"
 		id="itemService" timeout="5000" />
-	<dubbo:reference interface="cn.e3mall.service.ItemCatService"
-		id="itemCatService" timeout="5000" />
-	<dubbo:reference interface="cn.e3mall.service.ItemDescService"
-		id="itemDescService" timeout="5000" />
-		
-	<!-- 用dubbo协议在20881端口暴露服务 -->
-	<dubbo:protocol name="rmi" port="20881" codec="spring" />
-	<dubbo:reference interface="cn.e3mall.content.service.ContentCategoryService"
-		id="contentCategoryService" timeout="5000" />
-
-	<!-- 图片服务器地址资源 -->
-	<context:property-placeholder location="classpath:conf/resource.properties"/>
-	<!-- 文件上传功能 -->
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- 默认编码 -->
-		<property name="defaultEncoding" value="UTF-8" />
-		<!-- 最大文件大小 -->
-		<property name="maxUploadSize" value="5242880" />
-	</bean>
+	 -->
+	 
 </beans>
