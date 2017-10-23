@@ -16,7 +16,8 @@ public class FastDFSClient {
 	
 	public FastDFSClient(String conf) throws Exception {
 		if (conf.contains("classpath:")) {
-			conf = conf.replace("classpath:", this.getClass().getResource("/").getPath());
+			// bug-fixed toURI().getPath() 解决路径中含有空格(%20)时找不到文件的异常
+			conf = conf.replace("classpath:", this.getClass().getResource("/").toURI().getPath());
 		}
 		ClientGlobal.init(conf);
 		trackerClient = new TrackerClient();
