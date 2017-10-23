@@ -9,6 +9,11 @@ public class TbItem implements Serializable{
 	 */
 	private static final long serialVersionUID = -2585253450686922981L;
 
+	// 商品状态，1-正常，2-下架，3-删除
+	public static byte STATUS_RESHELF = 1;
+	public static byte STATUS_INSTOCK = 2;
+	public static byte STATUS_DELETE = 3;
+	
 	private Long id;
 
     private String title;

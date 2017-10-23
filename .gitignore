@@ -21,11 +21,11 @@ target/
 *.class
 
 #images
-*.jpg
-*.jpeg
-*.bmp
-*.png
-*.gif
+#*.jpg
+#*.jpeg
+#*.bmp
+#*.png
+#*.gif
 
 # Eclipse Core
 .project

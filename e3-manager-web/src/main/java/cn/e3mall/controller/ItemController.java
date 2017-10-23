@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,16 +68,36 @@ public class ItemController {
 		return result? E3Result.ok() : new E3Result(500, "更新商品失败！", null);
 	}
 	
+	//下架
 	@RequestMapping("/rest/item/instock")
 	@ResponseBody
-	public E3Result instockItem(TbItem item){
-		return null;
+	public E3Result instockItem(String ids){
+		if(StringUtils.isBlank(ids)) return new E3Result(500, "所选择的ids为空！", null);
+		// 商品状态，1-正常，2-下架，3-删除
+		if(itemService.updateItemStatusByIds(ids, TbItem.STATUS_INSTOCK))
+			return E3Result.ok();
+		else return new E3Result(500, "上架商品失败！", null);
 	}
+	
+	// 重新上架
 	@RequestMapping("/rest/item/reshelf")
 	@ResponseBody
-	public E3Result reshelfItem(TbItem item){
-		return null;
+	public E3Result reshelfItem(String ids){
+		if(StringUtils.isBlank(ids)) return new E3Result(500, "所选择的ids为空！", null);
+		// 商品状态，1-正常，2-下架，3-删除
+		if(itemService.updateItemStatusByIds(ids, TbItem.STATUS_RESHELF))
+			return E3Result.ok();
+		else return new E3Result(500, "下架商品失败！", null);
 	}
 	
-	
+	//删除
+	@RequestMapping("/rest/item/delete")
+	@ResponseBody
+	public E3Result deleteItem(String ids){
+		if(StringUtils.isBlank(ids)) return new E3Result(500, "所选择的ids为空！", null);
+		// 商品状态，1-正常，2-下架，3-删除
+		if(itemService.updateItemStatusByIds(ids, TbItem.STATUS_DELETE))
+			return E3Result.ok();
+		else return new E3Result(500, "删除商品失败！", null);
+	}
 }

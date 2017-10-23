@@ -26,5 +26,17 @@ public interface TbItemMapper {
 
     int updateByPrimaryKeySelective(TbItem record);
 
+    /**
+     * 根据TbItem对象更新对象
+     * @param record
+     * @return
+     */
     int updateByPrimaryKey(TbItem record);
+
+    /**
+     * 根据id数组及status批量更新商品状态
+     * @param array
+     * @param status
+     */
+	void updateItemsStatus(@Param("idsArr") Long[] idsArr, @Param("status") byte status);
 }

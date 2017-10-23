@@ -1,5 +1,6 @@
 package cn.e3mall.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -131,6 +132,22 @@ public class ItemServiceImpl implements ItemService {
 				itemDescMapper.updateByPrimaryKeyWithBLOBs(oldItemDesc);
 			}
 			itemMapper.updateByPrimaryKey(item);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updateItemStatusByIds(String ids, byte status) {
+		String[] idsStrArr = ids.split(",");
+		List<Long> idsList = new ArrayList<>(idsStrArr.length);
+		try {
+			for (String idsStr : idsStrArr) {
+				idsList.add(Long.valueOf(idsStr));
+			}
+			itemMapper.updateItemsStatus(idsList.toArray(new Long[0]), status);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

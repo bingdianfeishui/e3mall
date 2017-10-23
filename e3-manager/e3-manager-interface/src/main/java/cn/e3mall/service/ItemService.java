@@ -29,4 +29,13 @@ public interface ItemService {
 	 * @return
 	 */
 	boolean updateItemAndDesc(TbItem item, String desc);
+
+	/**
+	 * 根据id字符串更新商品状态status<p/>
+	 * 商品状态，1-正常，2-下架，3-删除
+	 * @param ids id字符串，多个id以','隔开
+	 * @param i
+	 * @return
+	 */
+	boolean updateItemStatusByIds(String ids, byte status);
 }

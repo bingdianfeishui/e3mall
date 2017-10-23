@@ -39,6 +39,7 @@ public class PictureController {
 	@Value("${IMAGE_SERVER_URL}")
 	private String IMAGE_SERVER_URL;
 
+	// 直接返回text/plain;charset=utf-8纯文本字串，而不是返回application/json对象。因为kindEditor对jason字串的浏览器兼容性不好。
 	@RequestMapping(value="/pic/upload", produces=MediaType.TEXT_PLAIN_VALUE+";charset=utf-8")
 	@ResponseBody
 	public String uploadFile(MultipartFile uploadFile) {
