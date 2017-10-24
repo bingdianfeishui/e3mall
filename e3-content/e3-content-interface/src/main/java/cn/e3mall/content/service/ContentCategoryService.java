@@ -15,4 +15,6 @@ public interface ContentCategoryService {
 
 	E3Result updateContentCategory(Long id, String name);
 
+	E3Result deleteContentCategory(Long id);
+
 }

@@ -22,7 +22,7 @@ public class PageHelperTest {
 	@Autowired
 	private TbItemMapper itemMapper;
 
-	@Test
+	//@Test
 	public void test() {
 		TbItemExample example = new TbItemExample();
 		PageHelper.startPage(3, 20);

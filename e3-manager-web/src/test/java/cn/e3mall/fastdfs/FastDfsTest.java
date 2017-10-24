@@ -17,7 +17,7 @@ public class FastDfsTest {
 	//@Test
 	public void test() throws FileNotFoundException, IOException, MyException {
 		// 1、加载配置文件，配置文件中的内容就是tracker服务的地址。
-		ClientGlobal.init("D:/Users/Lee/Documents/workspace/e3mall/e3-manager-web/src/main/resources/conf/client.conf");
+		ClientGlobal.init("D:\\Documents and Settings\\60238\\Documents\\workspace\\e3mall\\e3-manager-web\\src\\main\\resources\\conf\\client.conf");
 		// 2、创建一个TrackerClient对象。直接new一个。
 		TrackerClient trackerClient = new TrackerClient();
 		// 3、使用TrackerClient对象创建连接，获得一个TrackerServer对象。
@@ -28,7 +28,7 @@ public class FastDfsTest {
 		StorageClient storageClient = new StorageClient(trackerServer, storageServer);
 		// 6、使用StorageClient对象上传图片。
 		// 扩展名不带“.”
-		String[] files = storageClient.upload_file("D:/Users/Lee/Pictures/A_New_Dawn_1920x1200.jpg", "jpg", null);
+		String[] files = storageClient.upload_file("C:\\Users\\60238\\Pictures\\1.jpg", "jpg", null);
 		// 7、返回数组。包含组名和图片的路径
 		for (String f : files) {
 			System.out.println(f);
