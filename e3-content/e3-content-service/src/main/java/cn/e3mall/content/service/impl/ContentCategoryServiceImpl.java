@@ -38,7 +38,7 @@ import cn.e3mall.pojo.TbContentCategoryExample.Criteria;
  * @version 1.0
  */
 @Service
-public class ContentCatagoryServiceImpl implements ContentCategoryService {
+public class ContentCategoryServiceImpl implements ContentCategoryService {
 
 	@Autowired
 	private TbContentCategoryMapper contentCatMapper;

@@ -48,7 +48,7 @@ var contentListToolbar = [{
     		return ;
     	}
     	E3.createWindow({
-			url : "/content-add"
+			url : "/content/add"
 		}); 
     }
 },{
@@ -65,7 +65,7 @@ var contentListToolbar = [{
     		return ;
     	}
 		E3.createWindow({
-			url : "/content-edit",
+			url : "/content/edit",
 			onLoad : function(){
 				var data = $("#contentList").datagrid("getSelections")[0];
 				$("#contentEditForm").form("load",data);
