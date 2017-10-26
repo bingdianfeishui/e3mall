@@ -354,4 +354,12 @@
       updated = #{updated,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <delete id="deleteContentByIds" parameterType="long">
+  	DELETE FROM tb_content
+  	WHERE id IN
+  	<foreach collection="ids" item="item" open="(" close=")" separator=",">
+  		#{item}
+  	</foreach>
+  </delete>
 </mapper>

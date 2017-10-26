@@ -12,10 +12,19 @@ import cn.e3mall.pojo.TbContent;
 
 /**
  * 内容管理Controller
- * <p>Title: ContentController</p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2017</p>
- * <p>Company: NULL.Co</p>
+ * <p>
+ * Title: ContentController
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2017
+ * </p>
+ * <p>
+ * Company: NULL.Co
+ * </p>
+ * 
  * @author Lee
  * @date 2017年10月24日下午9:20:15
  * @version 1.0
@@ -25,18 +34,42 @@ public class ContentController {
 
 	@Autowired
 	private ContentService contentService;
-	
+
 	@RequestMapping("/content/query/list")
 	@ResponseBody
-	public EasyUIDataGridResult listContent(int page, int rows, Long categoryId){
-		
+	public EasyUIDataGridResult listContent(int page, int rows, Long categoryId) {
+
 		return contentService.selectListByCategoryId(page, rows, categoryId);
 	}
+
+	@RequestMapping(value = "/content/add")
+	public String contentEdit() {
+		return "content-add";
+	}
+
+	@RequestMapping(value = "/content/edit")
+	public String contentAdd() {
+		return "content-add";
+	}
 	
-	@RequestMapping(value="/content/save")
+	@RequestMapping(value = "/rest/content/edit")
 	@ResponseBody
-	public E3Result addContent(TbContent content){
-		
+	public E3Result editContent(TbContent content) {
+
+		return contentService.updateContent(content);
+	}
+
+	@RequestMapping(value = "/content/save")
+	@ResponseBody
+	public E3Result addContent(TbContent content) {
+
 		return contentService.insertContent(content);
+	}
+
+	@RequestMapping(value = "/content/delete")
+	@ResponseBody
+	public E3Result deleteContents(Long[] ids) {
+
+		return contentService.deleteContents(ids);
 	}
 }
