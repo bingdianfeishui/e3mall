@@ -362,4 +362,13 @@
   		#{item}
   	</foreach>
   </delete>
+  
+  <!-- 根据ids获取cids -->
+  <select id="selectCidsByIds" parameterType="long" resultType="long">
+  	SELECT DISTINCT category_id FROM tb_content
+  	WHERE id IN
+  	<foreach collection="ids" item="item" open="(" close=")" separator=",">
+  		#{item}
+  	</foreach>
+  </select>
 </mapper>
