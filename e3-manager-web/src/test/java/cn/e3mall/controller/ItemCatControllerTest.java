@@ -2,10 +2,9 @@ package cn.e3mall.controller;
 
 import java.util.List;
 
-import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import cn.e3mall.common.EasyUITreeNode;
+import cn.e3mall.common.pojo.EasyUITreeNode;
 import cn.e3mall.service.ItemCatService;
 
 public class ItemCatControllerTest {

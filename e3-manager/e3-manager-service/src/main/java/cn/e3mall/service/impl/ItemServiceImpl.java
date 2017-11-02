@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
-import cn.e3mall.common.EasyUIDataGridResult;
-import cn.e3mall.common.PageInfoCriteria;
+import cn.e3mall.common.pojo.EasyUIDataGridResult;
+import cn.e3mall.common.pojo.PageInfoCriteria;
 import cn.e3mall.common.util.IDUtils;
 import cn.e3mall.mapper.TbItemDescMapper;
 import cn.e3mall.mapper.TbItemMapper;

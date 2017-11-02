@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.e3mall.common.EasyUIDataGridResult;
-import cn.e3mall.common.util.E3Result;
+import cn.e3mall.common.pojo.E3Result;
+import cn.e3mall.common.pojo.EasyUIDataGridResult;
 import cn.e3mall.content.service.ContentService;
 import cn.e3mall.pojo.TbContent;
 

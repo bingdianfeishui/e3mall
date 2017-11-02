@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
-import cn.e3mall.common.EasyUIDataGridResult;
-import cn.e3mall.common.PageInfoCriteria;
 import cn.e3mall.common.jedis.JedisClient;
-import cn.e3mall.common.util.E3Result;
+import cn.e3mall.common.pojo.E3Result;
+import cn.e3mall.common.pojo.EasyUIDataGridResult;
+import cn.e3mall.common.pojo.PageInfoCriteria;
 import cn.e3mall.common.util.JsonUtils;
 import cn.e3mall.content.service.ContentService;
 import cn.e3mall.mapper.TbContentMapper;

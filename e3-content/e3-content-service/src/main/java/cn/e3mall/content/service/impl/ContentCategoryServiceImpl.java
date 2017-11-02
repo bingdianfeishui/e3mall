@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import cn.e3mall.common.EasyUITreeNode;
-import cn.e3mall.common.util.E3Result;
+import cn.e3mall.common.pojo.E3Result;
+import cn.e3mall.common.pojo.EasyUITreeNode;
 import cn.e3mall.content.service.ContentCategoryService;
 import cn.e3mall.mapper.TbContentCategoryMapper;
 import cn.e3mall.pojo.TbContentCategory;
