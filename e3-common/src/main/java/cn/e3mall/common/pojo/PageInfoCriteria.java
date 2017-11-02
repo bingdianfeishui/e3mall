@@ -1,7 +1,13 @@
 package cn.e3mall.common.pojo;
 
-public class PageInfoCriteria {
+import java.io.Serializable;
 
+public class PageInfoCriteria implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 504248955907343620L;
 	private Integer pageNum = 1;
 	private Integer pageSize = 10;
 

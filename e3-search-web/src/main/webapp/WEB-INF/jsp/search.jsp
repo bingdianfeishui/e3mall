@@ -38,7 +38,7 @@
         <div class="pagin">
           <span class="txt"><span class="n">${page }</span>/${totalPages }</span>
           <span class="prev">上一页</span><span class="next">下一页</span>       	</div>
-        <div class="total">共<span>${recourdCount }</span>个商品</div>
+        <div class="total">共<span>${recordCount }</span>个商品</div>
       </div>
     </div>
         

@@ -49,7 +49,7 @@
 	<!-- 用dubbo协议在20882端口暴露服务 -->
 	<dubbo:protocol name="${dubbo.protocol.name}" port="20882" />
 	<dubbo:reference interface="cn.e3mall.search.service.SearchItemService"
-		id="searchItemService" timeout="5000" />
+		id="searchItemService" timeout="60000" />
 
 	<!-- 文件上传功能 -->
 	<bean id="multipartResolver"
