@@ -12,7 +12,7 @@ import redis.clients.jedis.JedisPool;
 
 public class JedisTest {
 
-	@Test
+	//@Test
 	public void testJedis() {
 		// 创建一个jedis对象
 		Jedis jedis = new Jedis("192.168.25.133", 6379);
@@ -23,7 +23,7 @@ public class JedisTest {
 		jedis.close();
 	}
 
-	@Test
+	//@Test
 	public void testJedisPool() {
 		// 创建一个jedis连接池对象
 		JedisPool jedisPool = new JedisPool("192.168.25.133", 6379);
@@ -38,7 +38,7 @@ public class JedisTest {
 		jedisPool.close();
 	}
 
-	@Test
+	//@Test
 	public void testJedisCluster() {
 		// 创建集群ip端口set
 		Set<HostAndPort> nodes = new HashSet<>();

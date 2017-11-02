@@ -11,7 +11,7 @@ import cn.e3mall.common.jedis.JedisClientPool;
 @SuppressWarnings("resource")
 public class JedisClientTest {
 
-	@Test
+	//@Test
 	public void testJedisClientPool() {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 				"classpath:spring/applicationContext-jedis.xml", "classpath:spring/applicationContext-dao.xml");
@@ -23,7 +23,7 @@ public class JedisClientTest {
 		System.out.println(pool.get("pool"));
 	}
 
-	@Test
+	//@Test
 	public void testJedisClientCluster() {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 				"classpath:spring/applicationContext-jedis.xml", "classpath:spring/applicationContext-dao.xml");

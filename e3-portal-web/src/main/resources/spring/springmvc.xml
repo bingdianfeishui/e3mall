@@ -8,7 +8,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
         http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<context:property-placeholder location="classpath:conf/resource.properties" />
+	<context:property-placeholder location="classpath:conf/*.properties" />
 
 	<context:component-scan base-package="cn.e3mall.portal.controller" />
 	<mvc:annotation-driven />
@@ -25,11 +25,9 @@
 	<!-- 引用dubbo服务 -->
 	<!-- 提供方应用信息，用于计算依赖关系 -->
 	<dubbo:application name="e3-portal-web" />
-	<dubbo:registry address="multicast://224.5.6.7:1234?unicast=false" />
-	<!-- <dubbo:registry protocol="zookeeper" address="192.168.56.101:2181" 
-		/> -->
+	<dubbo:registry address="${dubbo.registry.address}" />
 	<!-- 用dubbo协议在20880端口暴露服务 -->
-	<dubbo:protocol name="rmi" port="20881" codec="spring" />
+	<dubbo:protocol name="${dubbo.protocol.name}" port="20881"/>
 
 	<!-- 声明需要暴露的服务接口 -->
 	<dubbo:reference interface="cn.e3mall.content.service.ContentService"
