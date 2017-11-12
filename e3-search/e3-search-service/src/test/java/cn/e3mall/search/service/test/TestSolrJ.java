@@ -18,7 +18,7 @@ public class TestSolrJ {
 
 	//@Before
 	public void getClient() {
-		client = new HttpSolrClient("http://192.168.25.100:8983/solr/core1/");
+		client = new HttpSolrClient("http://192.168.0.101:8983/solr/core1/");
 	}
 
 	//@After
