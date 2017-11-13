@@ -14,7 +14,7 @@ import org.junit.Test;
 import cn.e3mall.common.util.FastDFSClient;
 
 public class FastDfsTest {
-	@Test
+	//@Test
 	public void test() throws FileNotFoundException, IOException, MyException {
 		// 1、加载配置文件，配置文件中的内容就是tracker服务的地址。
 		//ClientGlobal.init("D:\\Documents and Settings\\60238\\Documents\\workspace\\e3mall\\e3-manager-web\\src\\main\\resources\\conf\\client.conf");
