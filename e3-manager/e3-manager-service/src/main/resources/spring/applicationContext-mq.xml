@@ -9,7 +9,7 @@
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 
 	<bean id="activeMQConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-		<property name="brokerURL" value="tcp://127.0.0.1:61616" />
+		<property name="brokerURL" value="tcp://192.168.56.120:61616" />
 		<!-- <property name="brokerURL" value="${activemq.brokerurl}"/> -->
 	</bean>
 
@@ -21,15 +21,17 @@
 
 	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestination" ref="topicDestination" />
 	</bean>
 
+	<bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg name="name" value="item.update_or_insert" />
+	</bean>
+
+	<!-- spring-mq test用
 	<bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg name="name" value="spring-queue" />
 	</bean>
-	<bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
-		<constructor-arg name="name" value="spring-topic" />
-	</bean>
-
 	<bean id="myTestMessageListener" class="cn.e3mall.test.activemq.MyTestMessageListener" />
 	<bean
 		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
@@ -37,4 +39,5 @@
 		<property name="destination" ref="topicDestination" />
 		<property name="messageListener" ref="myTestMessageListener" />
 	</bean>
+	 -->
 </beans>

@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 
 import com.github.pagehelper.Page;
@@ -41,6 +47,9 @@ public class ItemServiceImpl implements ItemService {
 	private TbItemMapper itemMapper;
 	@Autowired
 	private TbItemDescMapper itemDescMapper;
+
+	@Autowired
+	private JmsTemplate jmsTemplate;
 
 	@Override
 	public TbItem getItemById(Long id) {
@@ -92,6 +101,21 @@ public class ItemServiceImpl implements ItemService {
 			itemMapper.insert(item);
 			itemDescMapper.insert(itemDesc);
 
+			// 发布item更新消息
+			try {
+
+				final long id = item.getId();
+				jmsTemplate.send(new MessageCreator() {
+
+					@Override
+					public Message createMessage(Session session) throws JMSException {
+						return session.createTextMessage(id + "");
+					}
+				});
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -132,6 +156,21 @@ public class ItemServiceImpl implements ItemService {
 				itemDescMapper.updateByPrimaryKeyWithBLOBs(oldItemDesc);
 			}
 			itemMapper.updateByPrimaryKey(item);
+
+			// 发布item更新消息
+			try {
+
+				final long id = item.getId();
+				jmsTemplate.send(new MessageCreator() {
+
+					@Override
+					public Message createMessage(Session session) throws JMSException {
+						return session.createTextMessage(id + "");
+					}
+				});
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

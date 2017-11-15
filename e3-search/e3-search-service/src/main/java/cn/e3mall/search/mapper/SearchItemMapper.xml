@@ -15,4 +15,19 @@
 		WHERE
 			i.`status` = 1
 	</select>
+	
+	<select id="getSearchItemById" parameterType="long" resultType="cn.e3mall.common.pojo.SearchItem">
+		SELECT
+			i.id,
+			i.title,
+			i.sell_point,
+			i.price,
+			i.image,
+			c.`name` AS catagory_name
+		FROM
+			tb_item i
+		LEFT JOIN tb_item_cat c ON i.cid = c.id
+		WHERE
+			i.`id` = #{itemId} AND i.`status` = 1
+	</select>
 </mapper>

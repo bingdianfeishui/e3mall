@@ -15,7 +15,7 @@ public class JedisTest {
 	//@Test
 	public void testJedis() {
 		// 创建一个jedis对象
-		Jedis jedis = new Jedis("192.168.0.101", 6379);
+		Jedis jedis = new Jedis("192.168.56.120", 6379);
 		// 直接使用jedis对象操作redis
 		jedis.set("str1", "testJedis");
 		System.out.println("Jedis:" + jedis.get("str1"));
@@ -26,7 +26,7 @@ public class JedisTest {
 	//@Test
 	public void testJedisPool() {
 		// 创建一个jedis连接池对象
-		JedisPool jedisPool = new JedisPool("192.168.0.101", 6379);
+		JedisPool jedisPool = new JedisPool("192.168.56.120", 6379);
 		// 从连接池获得jedis连接
 		Jedis jedis = jedisPool.getResource();
 		// 直接使用jedis对象操作redis
@@ -42,12 +42,12 @@ public class JedisTest {
 	public void testJedisCluster() {
 		// 创建集群ip端口set
 		Set<HostAndPort> nodes = new HashSet<>();
-		nodes.add(new HostAndPort("192.168.0.101", 7001));
-		nodes.add(new HostAndPort("192.168.0.101", 7002));
-		nodes.add(new HostAndPort("192.168.0.101", 7003));
-		nodes.add(new HostAndPort("192.168.0.101", 7004));
-		nodes.add(new HostAndPort("192.168.0.101", 7005));
-		nodes.add(new HostAndPort("192.168.0.101", 7006));
+		nodes.add(new HostAndPort("192.168.56.120", 7001));
+		nodes.add(new HostAndPort("192.168.56.120", 7002));
+		nodes.add(new HostAndPort("192.168.56.120", 7003));
+		nodes.add(new HostAndPort("192.168.56.120", 7004));
+		nodes.add(new HostAndPort("192.168.56.120", 7005));
+		nodes.add(new HostAndPort("192.168.56.120", 7006));
 		// 创建一个jedisCluster对象
 		JedisCluster cluster = new JedisCluster(nodes);
 		cluster.set("str3", "testJedisCluster");
