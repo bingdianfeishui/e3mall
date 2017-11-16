@@ -30,7 +30,8 @@ public class UpdateIndexMessageListener implements MessageListener {
 				long id;
 				// 有id字符串，且id转换为long不为0
 				if (StringUtils.isNotBlank(text) && (id = Long.valueOf(text)) != 0) {
-					searchItemService.insertItemIndexById(id);
+					// System.out.println(text);
+					searchItemService.updateItemIndexById(id);
 				}
 			}
 		} catch (JMSException e) {

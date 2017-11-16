@@ -58,10 +58,10 @@ public class SearchItemServiceImpl implements SearchItemService {
 	}
 
 	@Override
-	public void insertItemIndexById(long itemId) {
+	public void updateItemIndexById(long itemId) {
 		SearchItem item = itemMapper.getSearchItemById(itemId);
-		// 查找到item，则更新索引
-		if (item != null && StringUtils.isNotBlank(item.getId())) {
+		if (item != null) {
+			// 查找到item，则更新索引
 			SolrInputDocument doc = new SolrInputDocument();
 			doc.setField("id", item.getId());
 			doc.setField("item_title", item.getTitle());
@@ -71,6 +71,14 @@ public class SearchItemServiceImpl implements SearchItemService {
 			doc.setField("item_category_name", item.getCatagory_name());
 			try {
 				solrClient.add(doc);
+				solrClient.commit();
+			} catch (SolrServerException | IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			// 若找不到item，说明是被禁用了，需要删除索引
+			try {
+				solrClient.deleteById(itemId + "");
 				solrClient.commit();
 			} catch (SolrServerException | IOException e) {
 				e.printStackTrace();

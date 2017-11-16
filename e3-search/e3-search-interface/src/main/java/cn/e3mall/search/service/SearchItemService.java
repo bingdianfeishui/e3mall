@@ -10,5 +10,5 @@ public interface SearchItemService {
 	 * 更新方式：直接插入。若存在相同id的索引，solr会先删除再插入。
 	 * @param itemId
 	 */
-	void insertItemIndexById(long itemId);
+	void updateItemIndexById(long itemId);
 }

@@ -187,6 +187,23 @@ public class ItemServiceImpl implements ItemService {
 				idsList.add(Long.valueOf(idsStr));
 			}
 			itemMapper.updateItemsStatus(idsList.toArray(new Long[0]), status);
+			
+			// 发布item更新消息
+			try {
+				for (final String id : idsStrArr) {
+					jmsTemplate.send(new MessageCreator() {
+
+						@Override
+						public Message createMessage(Session session) throws JMSException {
+							return session.createTextMessage(id);
+						}
+					});
+
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
