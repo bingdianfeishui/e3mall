@@ -9,7 +9,7 @@
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 
 	<bean id="activeMQConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-		<property name="brokerURL" value="tcp://192.168.0.110:61616" />
+		<property name="brokerURL" value="${activemq.server.brokerurl}" />
 		<!-- <property name="brokerURL" value="${activemq.brokerurl}"/> -->
 	</bean>
 
@@ -25,7 +25,7 @@
 	</bean>
 
 	<bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
-		<constructor-arg name="name" value="item.update_or_insert" />
+		<constructor-arg name="name" value="${activeMQ.topic.item.update_index}" />
 	</bean>
 
 	<!-- spring-mq test用

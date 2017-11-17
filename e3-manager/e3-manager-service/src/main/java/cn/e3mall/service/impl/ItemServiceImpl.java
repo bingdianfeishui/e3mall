@@ -43,6 +43,10 @@ import cn.e3mall.service.ItemService;
 @Component
 public class ItemServiceImpl implements ItemService {
 
+	protected static final String PREFIX_UPDATE = "U";
+	protected static final String PREFIX_DELETE = "D";
+	protected static final String SEPARATOR = ":";
+
 	@Autowired
 	private TbItemMapper itemMapper;
 	@Autowired
@@ -109,7 +113,7 @@ public class ItemServiceImpl implements ItemService {
 
 					@Override
 					public Message createMessage(Session session) throws JMSException {
-						return session.createTextMessage(id + "");
+						return session.createTextMessage(PREFIX_UPDATE + SEPARATOR + id);
 					}
 				});
 			} catch (Exception e) {
@@ -165,7 +169,7 @@ public class ItemServiceImpl implements ItemService {
 
 					@Override
 					public Message createMessage(Session session) throws JMSException {
-						return session.createTextMessage(id + "");
+						return session.createTextMessage(PREFIX_UPDATE + SEPARATOR + id);
 					}
 				});
 			} catch (Exception e) {
@@ -180,6 +184,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public boolean updateItemStatusByIds(String ids, byte status) {
+		// status 商品状态，1-正常，2-下架，3-删除
 		String[] idsStrArr = ids.split(",");
 		List<Long> idsList = new ArrayList<>(idsStrArr.length);
 		try {
@@ -187,23 +192,35 @@ public class ItemServiceImpl implements ItemService {
 				idsList.add(Long.valueOf(idsStr));
 			}
 			itemMapper.updateItemsStatus(idsList.toArray(new Long[0]), status);
-			
-			// 发布item更新消息
+
+			// 批量发布item更新消息
 			try {
-				for (final String id : idsStrArr) {
-					jmsTemplate.send(new MessageCreator() {
+				final String idsMsg = ids;
+				MessageCreator msgCreator = null;
+				if (status == 1) {
+					// 添加或更新
+					msgCreator = new MessageCreator() {
 
 						@Override
 						public Message createMessage(Session session) throws JMSException {
-							return session.createTextMessage(id);
+							return session.createTextMessage(PREFIX_UPDATE + SEPARATOR + idsMsg);
 						}
-					});
+					};
+				} else {
+					// 删除
+					msgCreator = new MessageCreator() {
 
+						@Override
+						public Message createMessage(Session session) throws JMSException {
+							return session.createTextMessage(PREFIX_DELETE + SEPARATOR + idsMsg);
+						}
+					};
 				}
+				jmsTemplate.send(msgCreator);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

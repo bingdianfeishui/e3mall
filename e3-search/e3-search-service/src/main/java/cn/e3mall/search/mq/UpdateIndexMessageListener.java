@@ -5,7 +5,6 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.e3mall.search.service.SearchItemService;
@@ -18,6 +17,10 @@ import cn.e3mall.search.service.SearchItemService;
  */
 public class UpdateIndexMessageListener implements MessageListener {
 
+	protected static final String PREFIX_UPDATE = "U";
+	protected static final String PREFIX_DELETE = "D";
+	protected static final String SEPARATOR = ":";
+
 	@Autowired
 	private SearchItemService searchItemService;
 
@@ -26,12 +29,18 @@ public class UpdateIndexMessageListener implements MessageListener {
 		try {
 			TextMessage textMsg = (TextMessage) message;
 			if (textMsg != null) {
-				String text = textMsg.getText();
-				long id;
-				// 有id字符串，且id转换为long不为0
-				if (StringUtils.isNotBlank(text) && (id = Long.valueOf(text)) != 0) {
-					// System.out.println(text);
-					searchItemService.updateItemIndexById(id);
+				System.out.println("TOPIC RECIVED! " + textMsg.getText());
+				String[] strs = textMsg.getText().trim().split(SEPARATOR);
+				String[] ids = {};
+				if (strs.length > 1)
+					ids = strs[1].split(",");
+
+				if (PREFIX_UPDATE.equals(strs[0])) {
+					searchItemService.updateItemIndexes(ids);
+				} else if (PREFIX_DELETE.equals(strs[0])) {
+					searchItemService.deleteItemIndexes(ids);
+				} else {
+					System.out.println("消息参数格式有误：" + textMsg.getText());
 				}
 			}
 		} catch (JMSException e) {

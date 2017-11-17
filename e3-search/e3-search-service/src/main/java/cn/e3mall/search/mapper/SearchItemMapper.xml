@@ -16,7 +16,7 @@
 			i.`status` = 1
 	</select>
 	
-	<select id="getSearchItemById" parameterType="long" resultType="cn.e3mall.common.pojo.SearchItem">
+	<select id="getSearchItemById" parameterType="string" resultType="cn.e3mall.common.pojo.SearchItem">
 		SELECT
 			i.id,
 			i.title,

@@ -16,7 +16,7 @@
 	</bean>
 
 	<bean id="itemUpdateTopic" class="org.apache.activemq.command.ActiveMQTopic">
-		<constructor-arg name="name" value="${activeMQ.topic.item.update_or_insert}" />
+		<constructor-arg name="name" value="${activeMQ.topic.item.update_index}" />
 	</bean>
 	<bean id="updateIndexMessageListener" class="cn.e3mall.search.mq.UpdateIndexMessageListener" />
 	<bean

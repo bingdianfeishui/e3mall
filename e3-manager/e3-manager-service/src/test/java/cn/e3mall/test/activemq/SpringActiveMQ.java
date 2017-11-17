@@ -18,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 public class SpringActiveMQ {
+	static int count = 1;
 
 	// @Test
 	public void testProducer() {
@@ -25,14 +26,17 @@ public class SpringActiveMQ {
 				"classpath:spring/applicationContext-mq.xml");
 		JmsTemplate jmsTemplate = applicationContext.getBean(JmsTemplate.class);
 		Destination destination = (Destination) applicationContext.getBean("topicDestination");
-		jmsTemplate.send(destination, new MessageCreator() {
+		for (int i = 0; i < 5; i++) {
+			jmsTemplate.send(destination, new MessageCreator() {
 
-			@Override
-			public Message createMessage(Session session) throws JMSException {
-				TextMessage message = session.createTextMessage("jmsTemplate-queueDestination");
-				return message;
-			}
-		});
+				@Override
+				public Message createMessage(Session session) throws JMSException {
+					TextMessage message = session.createTextMessage(count + "");
+					count++;
+					return message;
+				}
+			});
+		}
 		applicationContext.close();
 	}
 

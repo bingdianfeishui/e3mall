@@ -2,9 +2,9 @@ package cn.e3mall.search.service.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
@@ -58,31 +58,40 @@ public class SearchItemServiceImpl implements SearchItemService {
 	}
 
 	@Override
-	public void updateItemIndexById(long itemId) {
-		SearchItem item = itemMapper.getSearchItemById(itemId);
-		if (item != null) {
-			// 查找到item，则更新索引
-			SolrInputDocument doc = new SolrInputDocument();
-			doc.setField("id", item.getId());
-			doc.setField("item_title", item.getTitle());
-			doc.setField("item_sell_point", item.getSell_point());
-			doc.setField("item_price", item.getPrice());
-			doc.setField("item_image", item.getImage());
-			doc.setField("item_category_name", item.getCatagory_name());
-			try {
-				solrClient.add(doc);
-				solrClient.commit();
-			} catch (SolrServerException | IOException e) {
-				e.printStackTrace();
-			}
-		} else {
-			// 若找不到item，说明是被禁用了，需要删除索引
-			try {
-				solrClient.deleteById(itemId + "");
-				solrClient.commit();
-			} catch (SolrServerException | IOException e) {
-				e.printStackTrace();
+	public void updateItemIndexes(String[] ids) {
+		if (ids == null || ids.length == 0)
+			return;
+		for (String id : ids) {
+			SearchItem item = itemMapper.getSearchItemById(id.trim());
+			if (item != null) {
+				// 查找到item，则更新索引
+				SolrInputDocument doc = new SolrInputDocument();
+				doc.setField("id", item.getId());
+				doc.setField("item_title", item.getTitle());
+				doc.setField("item_sell_point", item.getSell_point());
+				doc.setField("item_price", item.getPrice());
+				doc.setField("item_image", item.getImage());
+				doc.setField("item_category_name", item.getCatagory_name());
+				try {
+					solrClient.add(doc);
+					solrClient.commit();
+				} catch (SolrServerException | IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
+	}
+
+	@Override
+	public void deleteItemIndexes(String[] ids) {
+		if (ids == null || ids.length == 0)
+			return;
+		try {
+			solrClient.deleteById(Arrays.asList(ids));
+			solrClient.commit();
+		} catch (SolrServerException | IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 }
