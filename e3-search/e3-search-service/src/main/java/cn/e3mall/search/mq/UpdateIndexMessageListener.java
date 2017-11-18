@@ -28,8 +28,8 @@ public class UpdateIndexMessageListener implements MessageListener {
 	public void onMessage(Message message) {
 		try {
 			TextMessage textMsg = (TextMessage) message;
+			System.out.println("Recived topic message is \"" + textMsg.getText() + "\"");
 			if (textMsg != null) {
-				System.out.println("TOPIC RECIVED! " + textMsg.getText());
 				String[] strs = textMsg.getText().trim().split(SEPARATOR);
 				String[] ids = {};
 				if (strs.length > 1)
