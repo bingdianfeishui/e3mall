@@ -4,6 +4,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.e3mall.common.jedis.JedisClient;
+import cn.e3mall.common.util.JsonUtils;
 import cn.e3mall.mapper.TbItemDescMapper;
 import cn.e3mall.pojo.TbItemDesc;
 import cn.e3mall.service.ItemDescService;
@@ -30,8 +32,13 @@ import cn.e3mall.service.ItemDescService;
 @Service
 public class ItemDescServiceImpl implements ItemDescService {
 
+	private static final String CACHE_KEY_TEMPLATE = "ITEM_INFO:%s:DESC";
+
 	@Autowired
 	private TbItemDescMapper itemDescMapper;
+
+	@Autowired
+	private JedisClient jedisClient;
 
 	@Override
 	public TbItemDesc getItemDescByBarCode(String barcode) {
@@ -46,7 +53,30 @@ public class ItemDescServiceImpl implements ItemDescService {
 
 	@Override
 	public TbItemDesc getByItemId(long itemId) {
-		return itemDescMapper.selectByPrimaryKey(itemId);
+		String key = String.format(CACHE_KEY_TEMPLATE, itemId);
+		// 查询缓存
+		try {
+			String json = jedisClient.get(key);
+			if (StringUtils.isNotBlank(json)) {
+				jedisClient.expire(key, 3600);
+				TbItemDesc itemDesc = JsonUtils.jsonToPojo(json, TbItemDesc.class);
+				return itemDesc;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		TbItemDesc itemDesc = itemDescMapper.selectByPrimaryKey(itemId);
+		// 添加缓存
+		if (itemDesc != null) {
+			try {
+				jedisClient.set(key, JsonUtils.objectToJson(itemDesc));
+				jedisClient.expire(key, 3600);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return itemDesc;
 	}
 
 }

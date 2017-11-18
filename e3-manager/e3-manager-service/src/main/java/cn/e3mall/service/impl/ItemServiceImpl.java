@@ -8,6 +8,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
@@ -16,9 +17,11 @@ import org.springframework.stereotype.Component;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
+import cn.e3mall.common.jedis.JedisClient;
 import cn.e3mall.common.pojo.EasyUIDataGridResult;
 import cn.e3mall.common.pojo.PageInfoCriteria;
 import cn.e3mall.common.util.IDUtils;
+import cn.e3mall.common.util.JsonUtils;
 import cn.e3mall.mapper.TbItemDescMapper;
 import cn.e3mall.mapper.TbItemMapper;
 import cn.e3mall.pojo.TbItem;
@@ -43,9 +46,10 @@ import cn.e3mall.service.ItemService;
 @Component
 public class ItemServiceImpl implements ItemService {
 
-	protected static final String PREFIX_UPDATE = "U";
-	protected static final String PREFIX_DELETE = "D";
-	protected static final String SEPARATOR = ":";
+	private static final String PREFIX_UPDATE = "U";
+	private static final String PREFIX_DELETE = "D";
+	private static final String SEPARATOR = ":";
+	private static final String CACHE_KEY_TEMPLATE = "ITEM_INFO:%s:BASE";
 
 	@Autowired
 	private TbItemMapper itemMapper;
@@ -55,18 +59,41 @@ public class ItemServiceImpl implements ItemService {
 	@Autowired
 	private JmsTemplate jmsTemplate;
 
+	@Autowired
+	private JedisClient jedisClient;
+
 	@Override
 	public TbItem getItemById(Long id) {
 		// return itemMapper.selectByPrimaryKey(id);
 
-		System.out.println("==============" + id);
+		// 查询缓存
+		String key = String.format(CACHE_KEY_TEMPLATE, id);
+		try {
+			String json = jedisClient.get(key);
+			if (StringUtils.isNotBlank(json)) {
+				jedisClient.expire(key, 3600); // 重设过期时间
+				TbItem item = JsonUtils.jsonToPojo(json, TbItem.class);
+				return item;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		// System.out.println("==============" + id);
 		TbItemExample example = new TbItemExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andIdEqualTo(id);
 		List<TbItem> list = itemMapper.selectByExample(example);
-		if (list != null && list.size() > 0)
-			return list.get(0);
-		else
+		if (list != null && list.size() > 0) {
+			TbItem item = list.get(0);
+			try {
+				// 添加缓存
+				jedisClient.set(key, JsonUtils.objectToJson(item)); // 添加缓存
+				jedisClient.expire(key, 3600); // 过期时间
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return item;
+		} else
 			return null;
 	}
 
@@ -163,7 +190,6 @@ public class ItemServiceImpl implements ItemService {
 
 			// 发布item更新消息
 			try {
-
 				final long id = item.getId();
 				jmsTemplate.send(new MessageCreator() {
 
@@ -175,6 +201,17 @@ public class ItemServiceImpl implements ItemService {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
+			// 删除redis缓存
+			try {
+				String key = String.format(CACHE_KEY_TEMPLATE, item.getId());
+				jedisClient.del(key);
+				String keyDesc = key.replace("BASE", "DESC");
+				jedisClient.del(keyDesc);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
