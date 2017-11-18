@@ -27,10 +27,10 @@ public class UpdateIndexMessageListener implements MessageListener {
 			TextMessage textMsg = (TextMessage) message;
 			if (textMsg != null) {
 				String text = textMsg.getText();
+				System.out.println("Topic Msg Recived: "+text);
 				long id;
 				// 有id字符串，且id转换为long不为0
 				if (StringUtils.isNotBlank(text) && (id = Long.valueOf(text)) != 0) {
-					// System.out.println(text);
 					searchItemService.updateItemIndexById(id);
 				}
 			}

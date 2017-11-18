@@ -40,7 +40,7 @@ public class SearchServiceImpl implements SearchService {
 		SearchResult searchResult = searchDao.search(query);
 		
 		searchResult.setPageInfo(pageInfo);// 自动计算totalPages
-
+		// int a=1/0; //全局异常处理测试
 		return searchResult;
 	}
 

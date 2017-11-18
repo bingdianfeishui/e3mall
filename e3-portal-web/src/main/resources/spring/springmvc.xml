@@ -19,15 +19,16 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<!-- 静态资源映射 <mvc:resources location="/css/" mapping="/css/**" /> <mvc:resources 
-		location="/js/" mapping="/js/**" /> -->
+	<!-- 静态资源映射 -->
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
 
 	<!-- 引用dubbo服务 -->
 	<!-- 提供方应用信息，用于计算依赖关系 -->
 	<dubbo:application name="e3-portal-web" />
 	<dubbo:registry address="${dubbo.registry.address}" />
 	<!-- 用dubbo协议在20880端口暴露服务 -->
-	<dubbo:protocol name="${dubbo.protocol.name}" port="20881"/>
+	<dubbo:protocol name="${dubbo.protocol.name}" port="20881" />
 
 	<!-- 声明需要暴露的服务接口 -->
 	<dubbo:reference interface="cn.e3mall.content.service.ContentService"
