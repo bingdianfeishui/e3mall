@@ -49,7 +49,7 @@
          <li>
             <div class="l-wrap">
 				<div class="pic">
-					<a class="trackref" href="http://localhost:8086/item/${item.id}.html" title="" target="_blank">
+					<a class="trackref" href="http://www.e3mall.cn:8086/item/${item.id}.html" title="" target="_blank">
 						<img src="${item.images[0] }" style="display:inline"/>
 					</a>
 				</div>

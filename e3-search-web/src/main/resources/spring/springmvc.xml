@@ -33,5 +33,5 @@
 	<dubbo:reference interface="cn.e3mall.search.service.SearchService"
 		id="searchService" timeout="5000" />
 
-
+	<bean class="cn.e3mall.search.exception.GlobalExceptionResolver" />
 </beans>
