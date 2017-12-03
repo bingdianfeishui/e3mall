@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>cn.e3mall</groupId>
+		<artifactId>e3-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>e3-sso</artifactId>
+	<packaging>pom</packaging>
+	<modules>
+		<module>e3-sso-interface</module>
+		<module>e3-sso-service</module>
+	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>cn.e3mall</groupId>
+			<artifactId>e3-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- 配置Tomcat插件 <plugin> <groupId>org.apache.tomcat.maven</groupId> <artifactId>tomcat7-maven-plugin</artifactId> 
+				<configuration> <path>/</path> <port>8087</port> </configuration> </plugin> -->
+
+			<!-- 配置jetty插件，支持热部署和session持久化。jetty9以上，版本已在parent pom中规定 -->
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<configuration>
+					<!-- 指定应用根路径和端口 -->
+					<httpConnector>
+						<host>localhost</host>
+						<port>8087</port>
+					</httpConnector>
+					<!-- 自动扫描改动时间间隔，在reload=auto时才起作用 -->
+					<scanIntervalSeconds>1</scanIntervalSeconds>
+					<!-- 手动重载，改动后在控制台按Enter键才重载 -->
+					<reload>manual</reload>
+
+					<!-- 关闭xxx的配置 <stopKey>foo</stopKey> <stopPort>9998</stopPort> -->
+
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

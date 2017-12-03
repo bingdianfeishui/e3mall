@@ -6,14 +6,15 @@
 		<artifactId>e3-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>e3-portal-web</artifactId>
+	<artifactId>e3-sso-web</artifactId>
 	<packaging>war</packaging>
+
 
 	<dependencies>
 
 		<dependency>
 			<groupId>cn.e3mall</groupId>
-			<artifactId>e3-content-interface</artifactId>
+			<artifactId>e3-sso-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -96,25 +97,16 @@
 			<artifactId>zkclient</artifactId>
 		</dependency>
 
-		<!-- mybatis分页插件，引入com.github.pagehelper.Page类，消除ClassNotFound的警告 -->
-		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper</artifactId>
-		</dependency>
+		<!-- mybatis分页插件，引入com.github.pagehelper.Page类，消除ClassNotFound的警告 <dependency> 
+			<groupId>com.github.pagehelper</groupId> <artifactId>pagehelper</artifactId> 
+			</dependency> -->
 	</dependencies>
 
 
 	<build>
 		<plugins>
-			<!-- 配置Tomcat插件 -->
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<configuration>
-					<path>/</path>
-					<port>8082</port>
-				</configuration>
-			</plugin>
+			<!-- 配置Tomcat插件 <plugin> <groupId>org.apache.tomcat.maven</groupId> <artifactId>tomcat7-maven-plugin</artifactId> 
+				<configuration> <path>/</path> <port>8088</port> </configuration> </plugin> -->
 
 			<!-- 配置jetty插件，支持热部署和session持久化。jetty9以上，版本已在parent pom中规定 -->
 			<plugin>
@@ -124,7 +116,7 @@
 					<!-- 指定应用根路径和端口 -->
 					<httpConnector>
 						<host>127.0.0.1</host>
-						<port>8082</port>
+						<port>8088</port>
 					</httpConnector>
 					<!-- 自动扫描改动时间间隔，在reload=auto时才起作用 -->
 					<scanIntervalSeconds>1</scanIntervalSeconds>

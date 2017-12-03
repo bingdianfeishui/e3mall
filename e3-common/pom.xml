@@ -8,6 +8,11 @@
 	</parent>
 	<artifactId>e3-common</artifactId>
 	<dependencies>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<!-- 时间操作组件 -->
 		<dependency>
 			<groupId>joda-time</groupId>
@@ -53,11 +58,8 @@
 		</dependency>
 
 		<!-- FastDFS client -->
-		<!-- <dependency>
-			<groupId>fastdfs_client</groupId>
-			<artifactId>fastdfs_client</artifactId>
-			<version>1.25</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>fastdfs_client</groupId> <artifactId>fastdfs_client</artifactId> 
+			<version>1.25</version> </dependency> -->
 		<dependency>
 			<groupId>org.csource</groupId>
 			<artifactId>fastdfs-client-java</artifactId>
