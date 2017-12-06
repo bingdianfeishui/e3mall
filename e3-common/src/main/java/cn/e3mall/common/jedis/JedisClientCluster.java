@@ -1,5 +1,9 @@
 package cn.e3mall.common.jedis;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import redis.clients.jedis.JedisCluster;
 
 public class JedisClientCluster implements JedisClient {
@@ -60,8 +64,38 @@ public class JedisClientCluster implements JedisClient {
 	}
 
 	@Override
+	public Boolean hexists(String key, String field) {
+		return jedisCluster.hexists(key, field);
+	}
+
+	@Override
+	public List<String> hvals(String key) {
+		return jedisCluster.hvals(key);
+	}
+
+	@Override
 	public Long del(String key) {
 		return jedisCluster.del(key);
+	}
+
+	@Override
+	public Long incrBy(String key, long integer) {
+		return jedisCluster.incrBy(key, integer);
+	}
+
+	@Override
+	public Set<String> hkeys(String hash1) {
+		return jedisCluster.hkeys(hash1);
+	}
+
+	@Override
+	public String hmset(String key, Map<String, String> hash1) {
+		return jedisCluster.hmset(key, hash1);
+	}
+
+	@Override
+	public List<String> hmget(String key, String... fields) {
+		return jedisCluster.hmget(key, fields);
 	}
 
 }

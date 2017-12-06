@@ -13,6 +13,14 @@
 	<context:component-scan base-package="cn.e3mall.cart.controller" />
 	<mvc:annotation-driven />
 
+	<!-- 拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="cn.e3mall.cart.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
@@ -28,7 +36,11 @@
 	<dubbo:application name="e3-cart-web" />
 	<dubbo:registry address="${dubbo.registry.address}" />
 
-	<!-- 声明需要暴露的服务接口-->
-	<dubbo:reference interface="cn.e3mall.service.ItemService" 
-		id="itemService" timeout="5000" />
+	<!-- 声明需要暴露的服务接口 -->
+	<dubbo:reference interface="cn.e3mall.service.ItemService"
+		id="itemService" timeout="30000" />
+	<dubbo:reference interface="cn.e3mall.sso.service.UserService"
+		id="userService" timeout="30000" />
+	<dubbo:reference interface="cn.e3mall.cart.service.CartService"
+		id="cartService" timeout="30000" />
 </beans>

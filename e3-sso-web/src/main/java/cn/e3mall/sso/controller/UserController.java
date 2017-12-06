@@ -10,7 +10,6 @@ import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.e3mall.common.pojo.E3Result;
@@ -39,7 +38,7 @@ public class UserController {
 		return userService.checkUserInfo(param, type);
 	}
 
-	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/login")
 	@ResponseBody
 	public E3Result login(String username, String password, HttpServletRequest request, HttpServletResponse response) {
 		// // 获取cookie中的token

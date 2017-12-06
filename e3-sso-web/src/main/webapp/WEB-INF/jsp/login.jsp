@@ -134,7 +134,8 @@
 				return true;
 			},
 			doLogin:function() {
-				$.post("/user/login", $("#formlogin").serialize(),function(data){
+				var param = location.toString().split("?")[1];
+				$.post("/user/login?" + param, $("#formlogin").serialize(),function(data){
 					if (data.status == 200) {
 						jAlert('登录成功！',"提示", function(){
 							if (redirectUrl == "") {

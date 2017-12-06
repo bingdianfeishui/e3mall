@@ -34,7 +34,7 @@
 </div>
 <script>
 	$(function(){
-		var map = $.parseJSON($.cookie('cookie_cart'));
+		var map = $.parseJSON($.cookie('CART_COOKIE'));
 		var num = Object.getOwnPropertyNames(map).length;
 		$("#cartNum").html(num);
 	});
