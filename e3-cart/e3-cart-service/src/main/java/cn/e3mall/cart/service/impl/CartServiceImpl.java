@@ -1,9 +1,12 @@
 package cn.e3mall.cart.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,8 @@ import org.springframework.stereotype.Service;
 import cn.e3mall.cart.service.CartService;
 import cn.e3mall.common.jedis.JedisClient;
 import cn.e3mall.common.pojo.E3Result;
+import cn.e3mall.mapper.TbItemMapper;
+import cn.e3mall.pojo.TbItem;
 
 /**
  * 购物车业务逻辑
@@ -28,6 +33,9 @@ public class CartServiceImpl implements CartService {
 
 	@Autowired
 	private JedisClient jedisClient;
+
+	@Autowired
+	private TbItemMapper itemMapper;
 
 	@Override
 	public E3Result addCart(Long userId, Long itemId, Integer num) {
@@ -82,6 +90,34 @@ public class CartServiceImpl implements CartService {
 		if (jedisClient.hexists(key, field))
 			jedisClient.hdel(key, field);
 		return E3Result.ok();
+	}
+
+	@Override
+	public E3Result getCartItemList(Long userId) {
+		// 获取jedis cart
+		String key = REDIS_CART_PRE + userId;
+		Set<String> hkeys = jedisClient.hkeys(key);
+		Map<Long, Integer> cartMap = new HashMap<>();
+		for (String k : hkeys) {
+			Integer num = Integer.valueOf(jedisClient.hget(key, k));
+			cartMap.put(Long.valueOf(k), num);
+		}
+
+		// 查询商品信息
+		List<TbItem> cartList = new ArrayList<>();
+		for (Map.Entry<Long, Integer> entry : cartMap.entrySet()) {
+			TbItem item = itemMapper.selectByPrimaryKey(entry.getKey());
+			if (item != null) {
+				item.setNum(entry.getValue());
+				String image = item.getImage();
+				if (StringUtils.isNotBlank(image))
+					item.setImage(item.getImage().split(",")[0]);
+				cartList.add(item);
+			}
+		}
+
+		// 返回
+		return E3Result.ok(cartList);
 	}
 
 }

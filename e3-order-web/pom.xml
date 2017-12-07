@@ -1,0 +1,170 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>cn.e3mall</groupId>
+		<artifactId>e3-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>e3-order-web</artifactId>
+	<packaging>war</packaging>
+	<dependencies>
+		<dependency>
+			<groupId>cn.e3mall</groupId>
+			<artifactId>e3-order-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.e3mall</groupId>
+			<artifactId>e3-cart-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.e3mall</groupId>
+			<artifactId>e3-manager-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.e3mall</groupId>
+			<artifactId>e3-sso-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- JSP相关 -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jsp-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+		<!-- dubbo相关 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.jboss.netty</groupId>
+					<artifactId>netty</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.sgroschupf</groupId>
+			<artifactId>zkclient</artifactId>
+		</dependency>
+
+		<!-- mybatis分页插件，引入com.github.pagehelper.Page类，消除ClassNotFound的警告 -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<!-- 配置Tomcat插件 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<path>/</path>
+					<port>8092</port>
+				</configuration>
+			</plugin>
+
+			<!-- 配置jetty插件，支持热部署和session持久化。jetty9以上，版本已在parent pom中规定 -->
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<configuration>
+					<!-- 指定应用根路径和端口 -->
+					<httpConnector>
+						<host>127.0.0.1</host>
+						<port>8092</port>
+					</httpConnector>
+					<!-- 自动扫描改动时间间隔，在reload=auto时才起作用 -->
+					<scanIntervalSeconds>1</scanIntervalSeconds>
+					<!-- 手动重载，改动后在控制台按Enter键才重载 -->
+					<reload>manual</reload>
+
+					<!-- 关闭xxx的配置 <stopKey>foo</stopKey> <stopPort>9998</stopPort> -->
+
+					<!-- session持久化配置 -->
+					<webAppConfig implementation="org.eclipse.jetty.maven.plugin.JettyWebAppContext">
+						<!-- 没有配置，不知道什么用 -->
+						<!-- <defaultsDescriptor>/Users/jesse/src/projects/jetty/jetty-documentation/target/classes/META-INF/webdefault.xml</defaultsDescriptor> -->
+						<!-- webApp上下文根目录 -->
+						<contextPath>${jetty.contextRoot}</contextPath>
+						<!-- session持久化设置 -->
+						<sessionHandler implementation="org.eclipse.jetty.server.session.SessionHandler">
+							<sessionManager
+								implementation="org.eclipse.jetty.server.session.HashSessionManager">
+								<!-- session持久化本地存储路径 -->
+								<storeDirectory>target/jetty-sessions</storeDirectory>
+								<idleSavePeriod>2</idleSavePeriod>
+							</sessionManager>
+						</sessionHandler>
+					</webAppConfig>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

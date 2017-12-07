@@ -94,6 +94,7 @@ public class UserController {
 		String token = CookieUtils.getCookieValue(request, TOKEN_KEY);
 		CookieUtils.deleteCookie(request, response, TOKEN_KEY);
 		E3Result result = userService.logout(token);
+		CookieUtils.deleteCookie(request, response, TOKEN_KEY);
 		if (StringUtils.isNotBlank(callback)) {
 			MappingJacksonValue mapping = new MappingJacksonValue(result);
 			mapping.setJsonpFunction(callback);
